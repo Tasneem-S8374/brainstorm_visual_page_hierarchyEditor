@@ -1,8 +1,12 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
+test("renders Visual Page Hierarchy Editor header", () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByText(/Visual Page Hierarchy Editor/i)).toBeInTheDocument();
+});
+
+test("renders Save button", () => {
+  render(<App />);
+  expect(screen.getByText(/Save/i)).toBeInTheDocument();
 });
