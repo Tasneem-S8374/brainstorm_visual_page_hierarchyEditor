@@ -53,43 +53,52 @@ export default function App() {
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
   };
-
   return (
-    <div className="h-screen w-full flex flex-col">
-      <header className="p-4 bg-gray-900 text-white flex gap-3">
-        <button
-          onClick={save}
-          className="bg-green-600 px-3 py-1 rounded hover:bg-green-700"
-        >
-          Save
-        </button>
+    <div className="h-screen w-full flex flex-col bg-gray-100">
+      {/* Header */}
+      <header className="h-14 px-6 bg-gray-900 text-white flex items-center justify-between shadow-md">
+        <h1 className="text-lg font-semibold tracking-wide">
+          Visual Page Hierarchy Editor
+        </h1>
 
-        <button
-          onClick={load}
-          className="bg-blue-600 px-3 py-1 rounded hover:bg-blue-700"
-        >
-          Load
-        </button>
+        <div className="flex gap-3">
+          <button
+            onClick={save}
+            className="bg-green-600 px-4 py-1.5 rounded hover:bg-green-700 transition"
+          >
+            Save
+          </button>
 
-        <button
-          onClick={exportJson}
-          className="bg-purple-600 px-3 py-1 rounded hover:bg-purple-700"
-        >
-          Export JSON
-        </button>
+          <button
+            onClick={load}
+            className="bg-blue-600 px-4 py-1.5 rounded hover:bg-blue-700 transition"
+          >
+            Load
+          </button>
+
+          <button
+            onClick={exportJson}
+            className="bg-purple-600 px-4 py-1.5 rounded hover:bg-purple-700 transition"
+          >
+            Export JSON
+          </button>
+        </div>
       </header>
 
-      <FlowCanvas
-        sections={sections}
-        setSections={setSections}
-        loadedNodes={nodesState}
-        loadedEdges={edgesState}
-        setNodesState={setNodesState}
-        setEdgesState={setEdgesState}
-      />
+      {/* Canvas */}
+      <div className="flex-1 relative">
+        <FlowCanvas
+          sections={sections}
+          setSections={setSections}
+          loadedNodes={nodesState}
+          loadedEdges={edgesState}
+          setNodesState={setNodesState}
+          setEdgesState={setEdgesState}
+        />
+      </div>
 
       {showJson && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white p-4 rounded w-[600px] max-h-[80vh] overflow-auto">
             <h2 className="font-bold mb-2">Exported JSON</h2>
             <pre className="text-xs bg-gray-100 p-2 rounded">
