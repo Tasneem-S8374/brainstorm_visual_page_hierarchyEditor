@@ -22,7 +22,6 @@ export default function FlowCanvas({
 }) {
   const nodeTypes = { homeNode: HomeNode };
   const { fitView } = useReactFlow();
-
   const isApplyingLoad = useRef(false);
 
   const initial = useMemo(() => {
@@ -59,11 +58,9 @@ export default function FlowCanvas({
   }, [sections, setSections]);
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initial.nodes);
-  const [edges, setEdgesStateLocal, onEdgesChange] = useEdgesState(
-    initial.edges,
-  );
+  const [edges, setEdgesLocal, onEdgesChange] = useEdgesState(initial.edges);
 
-  // ✅ Apply loaded data
+  // apply load
   useEffect(() => {
     if (loadedNodes?.length) {
       isApplyingLoad.current = true;
@@ -74,11 +71,11 @@ export default function FlowCanvas({
   useEffect(() => {
     if (loadedEdges?.length) {
       isApplyingLoad.current = true;
-      setEdgesStateLocal(loadedEdges);
+      setEdgesLocal(loadedEdges);
     }
-  }, [loadedEdges, setEdgesStateLocal]);
+  }, [loadedEdges, setEdgesLocal]);
 
-  // ✅ Sync back to App without loop
+  // sync back
   useEffect(() => {
     if (isApplyingLoad.current) {
       isApplyingLoad.current = false;

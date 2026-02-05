@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-.node-card:hover {
-  transform: scale(1.03);
-  transition: 0.2s;
+.nodrag {
+  pointer-events: all !important;
 }

@@ -19,6 +19,7 @@ export default function App() {
       "hierarchyData",
       JSON.stringify({ nodes: nodesState, edges: edgesState, sections }),
     );
+
     alert("Saved Successfully");
   };
 
