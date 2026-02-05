@@ -1,9 +1,17 @@
 import "@testing-library/jest-dom";
 
-class ResizeObserver {
+global.ResizeObserver = class {
   observe() {}
   unobserve() {}
   disconnect() {}
-}
+};
 
-window.ResizeObserver = ResizeObserver;
+window.matchMedia =
+  window.matchMedia ||
+  function () {
+    return {
+      matches: false,
+      addListener: function () {},
+      removeListener: function () {},
+    };
+  };

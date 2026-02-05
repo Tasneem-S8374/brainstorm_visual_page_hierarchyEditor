@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useMemo } from "react";
 import ReactFlow, {
   Background,
   Controls,
@@ -17,12 +17,9 @@ export default function FlowCanvas({
   setSections,
   loadedNodes,
   loadedEdges,
-  setNodesState,
-  setEdgesState,
 }) {
   const nodeTypes = { homeNode: HomeNode };
   const { fitView } = useReactFlow();
-  const isApplyingLoad = useRef(false);
 
   const initial = useMemo(() => {
     const nodes = hierarchy.map((item) => ({
@@ -58,39 +55,15 @@ export default function FlowCanvas({
   }, [sections, setSections]);
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initial.nodes);
-  const [edges, setEdgesLocal, onEdgesChange] = useEdgesState(initial.edges);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initial.edges);
 
-  // apply load
   useEffect(() => {
-    if (loadedNodes?.length) {
-      isApplyingLoad.current = true;
-      setNodes(loadedNodes);
-    }
+    if (loadedNodes?.length) setNodes(loadedNodes);
   }, [loadedNodes, setNodes]);
 
   useEffect(() => {
-    if (loadedEdges?.length) {
-      isApplyingLoad.current = true;
-      setEdgesLocal(loadedEdges);
-    }
-  }, [loadedEdges, setEdgesLocal]);
-
-  // sync back
-  useEffect(() => {
-    if (isApplyingLoad.current) {
-      isApplyingLoad.current = false;
-      return;
-    }
-    setNodesState(nodes);
-  }, [nodes, setNodesState]);
-
-  useEffect(() => {
-    if (isApplyingLoad.current) {
-      isApplyingLoad.current = false;
-      return;
-    }
-    setEdgesState(edges);
-  }, [edges, setEdgesState]);
+    if (loadedEdges?.length) setEdges(loadedEdges);
+  }, [loadedEdges, setEdges]);
 
   const onNodeClick = (_, node) => {
     setNodes((nds) =>
