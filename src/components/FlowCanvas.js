@@ -17,6 +17,8 @@ export default function FlowCanvas({
   setSections,
   loadedNodes,
   loadedEdges,
+  setNodesState,
+  setEdgesState,
 }) {
   const nodeTypes = { homeNode: HomeNode };
   const { fitView } = useReactFlow();
@@ -90,8 +92,14 @@ export default function FlowCanvas({
         nodes={nodes}
         edges={edges}
         nodeTypes={nodeTypes}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
+        onNodesChange={(changes) => {
+          onNodesChange(changes);
+          setNodesState(nodes);
+        }}
+        onEdgesChange={(changes) => {
+          onEdgesChange(changes);
+          setEdgesState(edges);
+        }}
         onNodeClick={onNodeClick}
         fitView
       >
